@@ -3,21 +3,38 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK17'
     }
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/niteshsharma99/maven-testng-jenkins.git'
             }
         }
 
-        stage('Build & Run Tests') {
+        stage('Validate') {
             steps {
-                bat 'mvn clean test'
+                bat 'mvn validate'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                bat 'mvn compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'mvn package'
             }
         }
 
